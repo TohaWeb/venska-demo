@@ -60,13 +60,19 @@ export const _utils = {
          * Uses Lenis when it is enabled, otherwise native smooth scrolling.
          */
         if (!el) return;
-        const header = document.querySelector('.header');
-        const offset = el.id === 'top' ? 0 : (header ? header.offsetHeight : 0);
+        // offset = height of the compact header (row + its scrolled padding), because the header
+        // shrinks while we travel — measuring it at click time would leave a gap on arrival
+        const row = document.querySelector('.header__row');
+        const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        const offset = el.id === 'top' ? 0 : (row ? row.offsetHeight + 1.5 * rem : 0);
         const top = el.getBoundingClientRect().top + window.scrollY - offset;
+
+        // same timing rule as the roomigo assembler: 1ms per px, clamped to 0.3–3s
+        const duration = Math.min(3000, Math.max(300, Math.abs(Math.round(top - window.scrollY)))) / 1000;
 
         _state.updateState({isScrollingToAnchor: true});
         if (_state.lenisInit) {
-            _state.lenisInit.scrollTo(top, {duration: 1.4, onComplete: () => _state.updateState({isScrollingToAnchor: false})});
+            _state.lenisInit.scrollTo(top, {duration, onComplete: () => _state.updateState({isScrollingToAnchor: false})});
         } else {
             window.scrollTo({top, behavior: _state.reducedMotion ? 'auto' : 'smooth'});
             setTimeout(() => _state.updateState({isScrollingToAnchor: false}), 1200);
@@ -131,6 +137,32 @@ export const _utils = {
                 timeout = setTimeout(callback, timeoutDelay);
             })
         });
+    },
+
+    detectBrowser() {
+        /**
+         * Detects browser and platform with focus on Safari / WebKit behavior.
+         *
+         * Returns:
+         * - "safari"      → Desktop Safari (macOS)
+         * - "ios_safari"  → iOS Safari / WebView
+         * - "firefox"
+         * - "chrome"
+         * - "other"
+         */
+        const ua = navigator.userAgent;
+
+        const isIOS = /iPad|iPhone|iPod/.test(ua);
+        const isFirefox = /Firefox/i.test(ua);
+        const isChrome = /Chrome|Chromium|CriOS/i.test(ua);
+        const isSafari = /Safari/i.test(ua) && !isChrome && !isFirefox;
+
+        if (isIOS && isSafari) return 'ios_safari';
+        if (isSafari) return 'safari';
+        if (isFirefox) return 'firefox';
+        if (isChrome) return 'chrome';
+
+        return 'other';
     },
 
     isMobile: {

@@ -10,9 +10,8 @@ export let _state = {
     lenisInit: null,
     isScrollingToAnchor: false,
 
-    // Smooth scroll (Lenis) is switched off: native scrolling felt smoother on this page.
-    // Flip to true to bring it back — _libs._lenis() handles the rest.
-    useSmoothScroll: false,
+    // Smooth scroll via Lenis (_libs._lenis). Desktop only — touch devices keep native scrolling.
+    useSmoothScroll: true,
 
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     finePointer: window.matchMedia('(hover: hover) and (pointer: fine)').matches,

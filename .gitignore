@@ -7,3 +7,6 @@ assembler/node_modules/
 
 # dev-only source maps
 assets/**/*.map
+
+# promo video for the client (not part of the site)
+promo/

@@ -15,6 +15,10 @@ export const cursor = () => {
         const ring = el.querySelector('.cursor__ring');
         let mx = -100, my = -100, rx = mx, ry = my;
         let raf = 0;
+        let seen = false;
+
+        // hidden until the mouse actually moves — otherwise the ring sits in the top-left corner
+        el.style.opacity = '0';
 
         const render = () => {
             rx += (mx - rx) * 0.18;
@@ -26,6 +30,13 @@ export const cursor = () => {
         window.addEventListener('mousemove', (e) => {
             mx = e.clientX;
             my = e.clientY;
+            if (!seen) {
+                // first move: jump the ring straight to the pointer instead of flying in from the corner
+                seen = true;
+                rx = mx;
+                ry = my;
+                el.style.opacity = '1';
+            }
             dot.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
             if (!raf) raf = requestAnimationFrame(render);
         }, {passive: true});
@@ -37,7 +48,7 @@ export const cursor = () => {
             el.classList.toggle('is-hover', !!hover);
         });
         document.addEventListener('mouseleave', () => { el.style.opacity = '0'; });
-        document.addEventListener('mouseenter', () => { el.style.opacity = '1'; });
+        document.addEventListener('mouseenter', () => { if (seen) el.style.opacity = '1'; });
 
         resolve();
     })

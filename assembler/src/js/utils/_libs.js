@@ -19,17 +19,29 @@ export const _libs = {
         });
     },
 
+    // Same Lenis setup as the roomigo assembler (_libs._lenis)
     _lenis() {
-        return new Promise((resolve) => {
-            if (_state.useSmoothScroll && !_state.reducedMotion && !_utils.isMobile.any()) {
+        return new Promise((resolve, reject) => {
+            if(_state.useSmoothScroll && !_state.reducedMotion && !_utils.isMobile.any()){
                 const lenis = new Lenis({
                     smoothWheel: true,
-                    lerp: 0.1,
+                    smoothTouch: true,
+                    wheelMultiplier: 1,
+                    touchMultiplier: 1,
+                    lerp: _utils.detectBrowser() === 'safari' ? 0.1 : 0.075,
+                    easing: (t) => 1 - Math.pow(1 - t, 3),
                 });
-                // drive Lenis from GSAP's ticker so ScrollTrigger and Lenis share one frame loop
+
+                function raf(time) {
+                    lenis.raf(time);
+                    requestAnimationFrame(raf);
+                }
+
+                requestAnimationFrame(raf);
+
+                // scroll-linked GSAP animations read the Lenis position on the same frame
                 lenis.on('scroll', ScrollTrigger.update);
-                gsap.ticker.add((time) => lenis.raf(time * 1000));
-                gsap.ticker.lagSmoothing(0);
+
                 _state.updateState({lenisInit: lenis});
             }
             resolve();

@@ -54,7 +54,8 @@
   &__img {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 16 / 10;
+    // the photos are portrait (4:5): a square frame keeps heads and whole devices in view on phones
+    aspect-ratio: 1;
     @media (min-width: $screen_md) {
       aspect-ratio: auto;
     }
