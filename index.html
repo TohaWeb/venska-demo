@@ -91,33 +91,41 @@
 
     <!-- ===== Hero ===== -->
     <section class="hero">
-      <div class="hero__media">
-        <img src="assets/img/hero-light.jpg" alt="Світлий кабінет Venska Easy Body з арками та рожевими хмаринками" fetchpriority="high">
-        <div class="hero__shade"></div>
-      </div>
+      <div class="hero__sky" aria-hidden="true"><i></i><i></i><i></i></div>
 
-      <div class="container hero__content">
-        <p class="eyebrow hero__eyebrow"><span class="dot"></span> Масаж · Корекція фігури · Косметологія</p>
-        <h1 class="hero__title">
-          <span class="line"><span>Тіло, яке</span></span>
-          <span class="line"><span><em>відчуває</em> легкість</span></span>
-        </h1>
-        <p class="hero__lead">Апаратна естетика тіла, масаж і SPA у Луцьку. Турбота про тіло, результат якої відчувається вже після перших процедур.</p>
-        <div class="hero__cta">
-          <a href="https://widget.client.appointer.ua/uk/venskaeasybody" target="_blank" rel="noopener" class="btn btn--gold"><span>Записатися онлайн</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a href="#services" class="btn btn--ghost"><span>Обрати процедуру</span></a>
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <p class="eyebrow hero__eyebrow"><span class="dot"></span> Масаж · Корекція фігури · Косметологія</p>
+          <h1 class="hero__title">
+            <span class="line"><span>Тіло, яке</span></span>
+            <span class="line"><span>відчуває</span></span>
+            <span class="line"><span><em class="rotator" aria-label="легкість"><span class="is-active">легкість</span><span>турботу</span><span>впевненість</span><span>тонус</span></em></span></span>
+          </h1>
+          <p class="hero__lead">Апаратна естетика тіла, масаж і SPA у Луцьку. Турбота, результат якої відчувається вже після перших процедур.</p>
+          <div class="hero__cta">
+            <a href="https://widget.client.appointer.ua/uk/venskaeasybody" target="_blank" rel="noopener" class="btn btn--gold"><span>Записатися онлайн</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a href="#services" class="btn btn--ghost"><span>Обрати процедуру</span></a>
+          </div>
+          <ul class="hero__facts">
+            <li><b>4,7</b><span><i aria-hidden="true">★★★★★</i>174 відгуки Google</span></li>
+            <li><b>12,1K</b><span>читачів<br>в Instagram</span></li>
+            <li><b>07–22</b><span>щодня,<br>без вихідних</span></li>
+          </ul>
         </div>
-        <p class="hero__claim"><b>№1</b> Найбільша кількість апаратів для корекції фігури у Волинській області</p>
-      </div>
 
-      <div class="hero__rating glass">
-        <div class="hero__stars" aria-hidden="true">★★★★★</div>
-        <div><b>4,7</b> <span>/ 5 · 174 відгуки Google</span></div>
-      </div>
-
-      <div class="hero__open glass">
-        <span class="pulse"></span>
-        <div><b>Щодня 07:00 – 22:00</b><span>вул. Яровиця, 11</span></div>
+        <div class="hero__visual">
+          <img class="hero__line" src="assets/img/lineart.png" alt="" aria-hidden="true">
+          <figure class="hero__arch hero__arch--main"><img src="assets/img/hero-light.jpg" alt="Кабінет Venska Easy Body з арками, лінійною графікою та рожевими хмаринками" fetchpriority="high"></figure>
+          <figure class="hero__arch hero__arch--small"><img src="assets/img/arches.jpg" alt="Зона очікування з арками"></figure>
+          <div class="hero__seal" aria-hidden="true">
+            <svg viewBox="0 0 200 200"><defs><path id="sealPath" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/></defs><text><textPath href="#sealPath" textLength="500" lengthAdjust="spacing">НАЙБІЛЬШЕ АПАРАТІВ НА ВОЛИНІ · КОРЕКЦІЯ ФІГУРИ · </textPath></text></svg>
+            <span>№1</span>
+          </div>
+          <div class="hero__chip glass">
+            <span class="pulse"></span>
+            <div><b class="hero__status">Щодня 07:00 – 22:00</b><span>вул. Яровиця, 11, Луцьк</span></div>
+          </div>
+        </div>
       </div>
 
       <a href="#services" class="hero__scroll" aria-label="Гортати вниз">
@@ -514,7 +522,7 @@
       <div class="container booking__grid">
         <div class="booking__text">
           <p class="eyebrow reveal">Запис</p>
-          <h2 class="h2 h2--xl reveal">Ваш час<br><em>для себе</em></h2>
+          <h2 class="h2 reveal">Ваш час<br><em>для себе</em></h2>
           <p class="muted reveal">Оберіть майстра, послугу та вільний час в онлайн-записі або залиште номер, і адміністратор передзвонить.</p>
           <a href="https://widget.client.appointer.ua/uk/venskaeasybody" target="_blank" rel="noopener" class="btn btn--gold reveal booking__online"><span>Онлайн-запис 24/7</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
           <ul class="booking__perks reveal">

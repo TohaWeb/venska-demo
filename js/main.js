@@ -205,6 +205,37 @@
     });
   });
 
+  /* ---------- Hero: rotating word ---------- */
+  const rot = $('.rotator');
+  if (rot && !reduced) {
+    const words = $$('span', rot);
+    let wi = 0;
+    setInterval(() => {
+      if (document.hidden) return;
+      const cur = words[wi];
+      wi = (wi + 1) % words.length;
+      const next = words[wi];
+      cur.classList.remove('is-active'); cur.classList.add('is-leaving');
+      next.classList.remove('is-leaving'); next.classList.add('is-active');
+      rot.setAttribute('aria-label', next.textContent);
+      setTimeout(() => cur.classList.remove('is-leaving'), 1000);
+    }, 2600);
+  }
+
+  /* ---------- Hero: open / closed right now (Kyiv time, 07:00–22:00) ---------- */
+  const chip = $('.hero__chip');
+  const statusEl = $('.hero__status');
+  const updateStatus = () => {
+    try {
+      const hour = +new Intl.DateTimeFormat('en-GB', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Europe/Kyiv' }).format(new Date());
+      const open = hour >= 7 && hour < 22;
+      statusEl.textContent = open ? 'Зараз відчинено · до 22:00' : 'Зачинено · відкриємось о 07:00';
+      chip.classList.toggle('is-closed', !open);
+    } catch (e) { /* keep the static text */ }
+  };
+  updateStatus();
+  setInterval(updateStatus, 60000);
+
   /* ---------- Gift certificate ---------- */
   const certSum = $('[data-cert]');
   $$('.cert__amounts button').forEach((b) => {
@@ -278,15 +309,19 @@
 
   // Hide hero pieces before the intro
   gsap.set('.hero__title .line > span', { yPercent: 115 });
-  gsap.set(['.hero__eyebrow', '.hero__lead', '.hero__cta', '.hero__claim', '.hero__rating', '.hero__open', '.hero__scroll'], { opacity: 0, y: 30 });
-  gsap.set('.hero__media img', { scale: 1.25 });
+  gsap.set(['.hero__eyebrow', '.hero__lead', '.hero__cta', '.hero__facts', '.hero__scroll'], { opacity: 0, y: 30 });
+  gsap.set('.hero__arch', { clipPath: 'inset(100% 0% 0% 0%)' });
+  gsap.set('.hero__arch img', { scale: 1.3 });
+  gsap.set('.hero__line', { clipPath: 'inset(0% 0% 100% 0%)' });
+  gsap.set('.hero__seal', { scale: 0, rotate: -120 });
+  gsap.set('.hero__chip', { opacity: 0, y: 24 });
   gsap.set('.header', { yPercent: -100, opacity: 0 });
 
   /* ---------- Preloader ---------- */
   const counter = { v: 0 };
   const plCount = $('.preloader__count');
   const imgsReady = new Promise((res) => {
-    const hero = $('.hero__media img');
+    const hero = $('.hero__arch--main img');
     if (hero.complete) res(); else { hero.addEventListener('load', res); hero.addEventListener('error', res); }
     setTimeout(res, 3500);
   });
@@ -305,21 +340,31 @@
     document.body.classList.remove('is-loading');
     lenis && lenis.start();
     const tl = gsap.timeline({ onComplete: () => ScrollTrigger.refresh() });
-    tl.to('.hero__media img', { scale: 1, duration: 2.4, ease: 'expo.out' }, 0)
-      .to('.header', { yPercent: 0, opacity: 1, duration: 1, ease: 'expo.out' }, .3)
+    tl.to('.header', { yPercent: 0, opacity: 1, duration: 1, ease: 'expo.out' }, .3)
+      .to('.hero__arch--main', { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'expo.inOut' }, 0)
+      .to('.hero__arch--main img', { scale: 1, duration: 2.4, ease: 'expo.out' }, .2)
+      .to('.hero__arch--small', { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, ease: 'expo.inOut' }, .35)
+      .to('.hero__arch--small img', { scale: 1, duration: 2.2, ease: 'expo.out' }, .55)
+      .to('.hero__line', { clipPath: 'inset(0% 0% 0% 0%)', duration: 2.6, ease: 'power2.inOut' }, .6)
       .to('.hero__eyebrow', { opacity: 1, y: 0, duration: 1, ease: 'expo.out' }, .35)
       .to('.hero__title .line > span', { yPercent: 0, duration: 1.4, stagger: .12, ease: 'expo.out' }, .4)
-      .to('.hero__lead', { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out' }, .75)
-      .to('.hero__cta', { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out' }, .85)
-      .to('.hero__claim', { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out' }, .95)
-      .to(['.hero__rating', '.hero__open'], { opacity: 1, y: 0, duration: 1.2, stagger: .12, ease: 'expo.out' }, 1)
-      .to('.hero__scroll', { opacity: 1, y: 0, duration: 1, ease: 'expo.out' }, 1.2);
+      .to('.hero__lead', { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out' }, .8)
+      .to('.hero__cta', { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out' }, .9)
+      .to('.hero__facts', { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out' }, 1)
+      .to('.hero__seal', { scale: 1, rotate: 0, duration: 1.6, ease: 'expo.out' }, 1)
+      .to('.hero__chip', { opacity: 1, y: 0, duration: 1.2, ease: 'expo.out' }, 1.15)
+      .to('.hero__scroll', { opacity: 1, y: 0, duration: 1, ease: 'expo.out' }, 1.3);
     return tl;
   }
 
-  /* ---------- Hero parallax ---------- */
-  gsap.to('.hero__media', { yPercent: 18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-  gsap.to('.hero__content', { yPercent: -18, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 20%', scrub: true } });
+  /* ---------- Hero parallax: layers drift at different speeds ---------- */
+  const heroScroll = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true };
+  gsap.to('.hero__arch--main', { y: -50, ease: 'none', scrollTrigger: heroScroll });
+  gsap.to('.hero__arch--small', { y: -140, ease: 'none', scrollTrigger: heroScroll });
+  gsap.to('.hero__line', { y: 60, ease: 'none', scrollTrigger: heroScroll });
+  gsap.to('.hero__seal', { y: -180, ease: 'none', scrollTrigger: heroScroll });
+  gsap.to('.hero__chip', { y: -90, ease: 'none', scrollTrigger: heroScroll });
+  gsap.to('.hero__content', { yPercent: -14, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 20%', scrub: true } });
 
   /* ---------- Generic reveals ---------- */
   gsap.set('.reveal', { opacity: 0, y: 44 });
@@ -379,7 +424,9 @@
       x: () => -dist(), ease: 'none',
       scrollTrigger: {
         trigger: '.services', start: 'top top', end: () => '+=' + dist(),
-        pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1,
+        // refreshPriority: the pin is created after triggers that sit below it on the page
+        // (about, gallery, gift…), so it must be measured first or their start/end ignore its spacer
+        pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1, refreshPriority: 1,
         onUpdate: (self) => setCount(Math.round(self.progress * (cards.length - 1))),
       },
     });
