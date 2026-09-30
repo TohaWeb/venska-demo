@@ -11,13 +11,11 @@
     @media (min-width: $screen_lg) {
       display: flex;
       flex-direction: column;
+      // plain vh on purpose: svh/dvh change while the mobile address bar moves and make scroll animations jump
       height: 100vh;
       min-height: px_to_rem(600px);
       padding: px_to_rem(100px) 0 px_to_rem(44px);
       overflow: hidden;
-      @supports (height: 1svh) {
-        height: 100svh;
-      }
     }
   }
 

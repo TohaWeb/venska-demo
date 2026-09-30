@@ -7,11 +7,9 @@
   @media (min-width: $screen_lg) {
     display: flex;
     align-items: center;
+    // plain vh on purpose: svh/dvh change while the mobile address bar moves and make scroll animations jump
     min-height: 100vh;
     padding: px_to_rem(130px) 0 px_to_rem(90px);
-    @supports (height: 1svh) {
-      min-height: 100svh;
-    }
   }
 
   // Soft blush "clouds". No filter: blur — the radial gradient is already soft,

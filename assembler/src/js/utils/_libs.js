@@ -5,6 +5,8 @@ import {ScrollTrigger} from "gsap/ScrollTrigger.js";
 import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
+// the mobile address bar showing/hiding resizes the viewport — don't re-measure every trigger for that
+ScrollTrigger.config({ignoreMobileResize: true});
 
 export {gsap, ScrollTrigger};
 
