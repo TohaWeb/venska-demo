@@ -1,0 +1,80 @@
+$fontTitle: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+
+$fontPrimary: "Manrope", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif;
+
+// Breakpoints for responsive design (used with min-width media queries)
+$screen_sm: 375px;
+$screen_md: 768px;
+$screen_lg: 1024px;
+$screen_xl: 1280px;
+$screen_max: 1920px;
+
+// Breakpoints for responsive design (used with max-width media queries)
+$screen_sm_down: 374px;
+$screen_md_down: 767px;
+$screen_lg_down: 1023px;
+$screen_xl_down: 1279px;
+$screen_max_down: 1919px;
+
+
+$mockup_screen_desktop_w: 1440px;
+$mockup_screen_desktop_h: 810px;
+
+$mockup_screen_tablet_w: 820px;
+$mockup_screen_tablet_h: 1180px;
+
+$mockup_screen_mobile_w: 390px;
+$mockup_screen_mobile_h: 844px;
+
+
+$zIndexProgress: 120;
+$zIndexHeader: 100;
+$zIndexMenu: 99;
+$zIndexCustomCursor: 999;
+$zIndexPreloader: 1000;
+
+
+$base_FZ: 16px;
+
+$ease: cubic-bezier(.22, 1, .36, 1);
+$transition: .35s $ease;
+
+// Radii
+$radius: 22px;
+$radius-lg: 28px;
+
+//Colors — brand palette from the salon's Instagram (ivory / taupe / ink / blush)
+$ivory: #F7F3EE;       // page background
+$linen: #EFE8E1;       // alternate section background
+$paper: #FFFDFB;       // cards
+$ink: #1E1916;         // main text, dark buttons (logo colour)
+$umber: #54483F;       // secondary text
+$taupe-gray: #8A7C71;  // muted text
+$taupe: #B09785;       // accents, lines
+$mocha: #8C705F;       // accent text
+$blush: #F1DCD8;
+$blush-dark: #E6C4BF;
+$blush-bg: #F5EBE6;    // instagram section
+$story: #B8A597;       // instagram highlight covers
+$error: #D77B6A;
+$online: #7BD88F;
+$white: #FFFFFF;
+
+$line: rgba(58, 44, 36, .11);
+$line-2: rgba(58, 44, 36, .22);
+$ivory-90: rgba($ivory, .9);
+$white-80: rgba($white, .8);
+
+$shadow: 0 30px 60px -34px rgba(70, 48, 36, .35);
+$shadow-deep: 0 40px 80px -40px rgba(70, 48, 36, .45);
+
+$gradient-accent: linear-gradient(120deg, #8C705F 0%, #B8A08F 50%, #8C705F 100%);
+
+// Dark surfaces (featured plan, footer)
+$dark-bg: #1E1916;
+$dark-text: #F7F1EC;
+$dark-sand: #D9CBC0;
+$dark-muted: #A8988C;
+$dark-accent: #E9D6C9;
+$dark-line: rgba(255, 255, 255, .12);
+$dark-line-2: rgba(255, 255, 255, .26);

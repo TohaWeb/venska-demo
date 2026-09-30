@@ -1,0 +1,111 @@
+@import "../../utils", "../../variables";
+
+.faq {
+  background: $linen;
+  border-block: 1px solid $line;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: px_to_rem(40px);
+    @media (min-width: $screen_lg) {
+      grid-template-columns: .8fr 1.2fr;
+      gap: px_to_rem(100px);
+      align-items: start;
+    }
+  }
+
+  &__phone {
+    display: inline-block;
+    margin-top: px_to_rem(16px);
+    border-bottom: 1px solid $line-2;
+    font-family: $fontTitle;
+    font-size: px_to_rem(34px);
+    color: $mocha;
+    @media (min-width: $screen_lg) {
+      font-size: px_to_rem(38px);
+    }
+  }
+
+  &__list {
+    border-top: 1px solid $line;
+  }
+
+  &__item {
+    border-bottom: 1px solid $line;
+
+    summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: px_to_rem(24px);
+      padding: px_to_rem(24px) 0;
+      list-style: none;
+      cursor: pointer;
+      font-family: $fontTitle;
+      font-size: px_to_rem(22px);
+      line-height: 1.25;
+      transition: color .3s;
+      @media (min-width: $screen_lg) {
+        padding: px_to_rem(28px) 0;
+        font-size: px_to_rem(27px);
+      }
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      &:hover {
+        color: $mocha;
+      }
+
+      // plus → minus icon
+      i {
+        position: relative;
+        flex: none;
+        width: px_to_rem(40px);
+        height: px_to_rem(40px);
+        border-radius: 50%;
+        border: 1px solid $line-2;
+        transition: transform .5s $ease, background-color .4s, border-color .4s, color .4s;
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: px_to_rem(14px);
+          height: 1px;
+          background: currentColor;
+          transform: translate(-50%, -50%);
+        }
+
+        &::after {
+          transform: translate(-50%, -50%) rotate(90deg);
+          transition: transform .5s $ease;
+        }
+      }
+    }
+
+    &[open] summary i {
+      background: $taupe;
+      border-color: $taupe;
+      color: $ivory;
+      transform: rotate(180deg);
+
+      &::after {
+        transform: translate(-50%, -50%) rotate(0);
+      }
+    }
+
+    p {
+      margin: 0;
+      padding: 0 0 px_to_rem(30px);
+      color: $taupe-gray;
+      @media (min-width: $screen_md) {
+        padding-right: px_to_rem(60px);
+      }
+    }
+  }
+}

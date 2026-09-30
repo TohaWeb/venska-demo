@@ -1,0 +1,395 @@
+@import "../../utils", "../../variables";
+
+.booking {
+  overflow: hidden;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba($ivory, .9), rgba($ivory, .45) 60%, rgba($ivory, .7)),
+        linear-gradient(0deg, $ivory, transparent 25%, transparent 75%, $ivory);
+    }
+  }
+
+  &__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: px_to_rem(40px);
+    @media (min-width: $screen_lg) {
+      grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+      gap: px_to_rem(90px);
+      align-items: center;
+    }
+
+    .form {
+      width: 100%;
+      @media (min-width: $screen_lg) {
+        max-width: px_to_rem(700px);
+        justify-self: end;
+      }
+    }
+  }
+
+  &__text > .muted {
+    max-width: px_to_rem(440px);
+  }
+
+  &__online {
+    margin-top: px_to_rem(30px);
+  }
+
+  &__perks {
+    display: grid;
+    gap: px_to_rem(14px);
+    margin: px_to_rem(36px) 0 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: px_to_rem(14px);
+      color: $umber;
+
+      &::before {
+        content: "✦";
+        font-size: px_to_rem(13px);
+        color: $taupe;
+      }
+    }
+  }
+}
+
+// ---------- Callback form ----------
+.form {
+  position: relative;
+  overflow: hidden;
+  padding: px_to_rem(26px);
+  border-radius: px_to_rem($radius + 8px);
+  @media (min-width: $screen_lg) {
+    padding: px_to_rem(46px);
+  }
+
+  h3 {
+    margin: 0;
+    font-family: $fontTitle;
+    font-weight: 400;
+    font-size: px_to_rem(30px);
+    line-height: 1.05;
+    @media (min-width: $screen_lg) {
+      font-size: px_to_rem(38px);
+    }
+  }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: px_to_rem(20px);
+    margin-bottom: px_to_rem(22px);
+    padding-bottom: px_to_rem(20px);
+    border-bottom: 1px solid $line;
+    @media (min-width: $screen_md) {
+      margin-bottom: px_to_rem(26px);
+      padding-bottom: px_to_rem(24px);
+    }
+
+    p {
+      margin: px_to_rem(8px) 0 0;
+      font-size: px_to_rem(14px);
+      color: $taupe-gray;
+    }
+  }
+
+  &__mark {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: px_to_rem(46px);
+    height: px_to_rem(46px);
+    border-radius: 50%;
+    border: 1px solid $line-2;
+    background: $blush;
+    color: $mocha;
+    @media (min-width: $screen_md) {
+      width: px_to_rem(54px);
+      height: px_to_rem(54px);
+    }
+
+    svg {
+      width: px_to_rem(18px);
+      height: px_to_rem(27px);
+    }
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: px_to_rem(12px);
+    margin-bottom: px_to_rem(26px);
+    @media (min-width: $screen_md) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__group {
+    margin-bottom: px_to_rem(26px);
+
+    &.is-error .form__chips span {
+      border-color: $error;
+    }
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: px_to_rem(12px);
+    font-size: px_to_rem(11px);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: $taupe-gray;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: px_to_rem(8px);
+
+    span {
+      display: inline-block;
+      padding: px_to_rem(9px) px_to_rem(14px);
+      border-radius: px_to_rem(100px);
+      border: 1px solid $line-2;
+      background: $white;
+      font-size: px_to_rem(13.5px);
+      line-height: 1.2;
+      color: $umber;
+      transition: background-color .35s $ease, color .35s $ease, border-color .35s $ease;
+      @media (min-width: $screen_md) {
+        padding: px_to_rem(10px) px_to_rem(17px);
+        font-size: px_to_rem(14px);
+      }
+    }
+  }
+
+  &__times {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: px_to_rem(8px);
+    @media (min-width: $screen_md) {
+      gap: px_to_rem(10px);
+    }
+
+    span {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: px_to_rem(12px) px_to_rem(4px);
+      border-radius: px_to_rem(16px);
+      border: 1px solid $line-2;
+      background: $white;
+      font-size: px_to_rem(14px);
+      font-weight: 500;
+      color: $ink;
+      transition: background-color .35s $ease, color .35s $ease, border-color .35s $ease;
+      @media (min-width: $screen_md) {
+        padding: px_to_rem(14px) px_to_rem(8px);
+        font-size: px_to_rem(15px);
+      }
+    }
+
+    small {
+      font-size: px_to_rem(11px);
+      font-weight: 400;
+      color: $taupe-gray;
+      transition: color .35s $ease;
+      @media (min-width: $screen_md) {
+        font-size: px_to_rem(12px);
+      }
+    }
+  }
+
+  &__chips,
+  &__times {
+    label {
+      position: relative;
+      cursor: pointer;
+    }
+
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+
+      &:checked + span {
+        background: $ink;
+        color: $ivory;
+        border-color: $ink;
+
+        small {
+          color: rgba($ivory, .7);
+        }
+      }
+
+      &:focus-visible + span {
+        outline: 2px solid $taupe;
+        outline-offset: 2px;
+      }
+    }
+
+    @media (hover: hover) {
+      label:hover span {
+        border-color: $taupe;
+      }
+    }
+  }
+
+  &__foot {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: px_to_rem(14px);
+    padding-top: px_to_rem(6px);
+    @media (min-width: $screen_md) {
+      flex-direction: row;
+      align-items: center;
+      gap: px_to_rem(22px);
+    }
+
+    .btn {
+      flex: none;
+    }
+  }
+
+  &__note {
+    margin: 0;
+    font-size: px_to_rem(12px);
+    text-align: center;
+    color: $taupe-gray;
+    @media (min-width: $screen_md) {
+      max-width: px_to_rem(240px);
+      text-align: left;
+    }
+  }
+
+  &__success {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: px_to_rem(30px);
+    text-align: center;
+    background: $paper;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .6s $ease, visibility .6s;
+
+    h3 {
+      margin: px_to_rem(18px) 0 px_to_rem(6px);
+    }
+
+    p {
+      margin: 0;
+      color: $umber;
+    }
+  }
+
+  &.is-sent &__success {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__check {
+    svg {
+      width: px_to_rem(86px);
+      height: px_to_rem(86px);
+      fill: none;
+      stroke: $taupe;
+      stroke-width: 1.5;
+    }
+
+    circle {
+      stroke-dasharray: 160;
+      stroke-dashoffset: 160;
+    }
+
+    path {
+      stroke-dasharray: 40;
+      stroke-dashoffset: 40;
+      stroke-width: 2;
+    }
+  }
+
+  &.is-sent &__check {
+    circle {
+      animation: draw .9s .2s $ease forwards;
+    }
+
+    path {
+      animation: draw .5s .9s $ease forwards;
+    }
+  }
+}
+
+.field {
+  position: relative;
+  display: block;
+
+  input {
+    width: 100%;
+    height: px_to_rem(62px);
+    padding: px_to_rem(22px) px_to_rem(20px) px_to_rem(6px);
+    border-radius: px_to_rem(14px);
+    border: 1px solid $line-2;
+    background: $white;
+    color: $ink;
+    font: inherit;
+    font-size: 16px; // keeps iOS from zooming in on focus
+    outline: none;
+    appearance: none;
+    transition: border-color .3s;
+
+    &:focus {
+      border-color: $taupe;
+    }
+  }
+
+  span {
+    position: absolute;
+    left: px_to_rem(21px);
+    top: px_to_rem(20px);
+    font-size: px_to_rem(15px);
+    color: $taupe-gray;
+    pointer-events: none;
+    transition: top .3s $ease, font-size .3s $ease, color .3s $ease, letter-spacing .3s $ease;
+  }
+
+  // floating label
+  input:focus + span,
+  input:not(:placeholder-shown) + span {
+    top: px_to_rem(9px);
+    font-size: px_to_rem(11px);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: $mocha;
+  }
+
+  &.is-error input {
+    border-color: $error;
+  }
+}

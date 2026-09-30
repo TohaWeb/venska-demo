@@ -1,0 +1,97 @@
+@import "../../utils", "../../variables";
+
+.btn {
+  --h: #{px_to_rem(58px)};
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: px_to_rem(12px);
+  height: var(--h);
+  padding: 0 px_to_rem(32px);
+  border-radius: px_to_rem(100px);
+  font-size: px_to_rem(13px);
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: color .5s $ease, border-color .5s $ease;
+
+  span,
+  svg {
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  svg {
+    width: px_to_rem(18px);
+    height: px_to_rem(18px);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    transition: transform .5s $ease;
+  }
+
+  // hover fill slides up from below (transform only — composited)
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    transform: translateY(101%);
+    transition: transform .6s $ease;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      svg {
+        transform: translateX(px_to_rem(4px));
+      }
+
+      &::after {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  // dark pill in the logo colour
+  &--gold {
+    background: $ink;
+    color: $ivory;
+
+    &::after {
+      background: $mocha;
+    }
+  }
+
+  &--ghost {
+    border: 1px solid $line-2;
+    color: $ink;
+    background: rgba($white, .45);
+
+    &::after {
+      background: $ink;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: $ivory;
+        border-color: $ink;
+      }
+    }
+  }
+
+  &--sm {
+    --h: #{px_to_rem(46px)};
+    padding: 0 px_to_rem(22px);
+    font-size: px_to_rem(11px);
+  }
+
+  &--full {
+    width: 100%;
+  }
+}

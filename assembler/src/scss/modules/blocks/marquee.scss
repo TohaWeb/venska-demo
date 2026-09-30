@@ -1,0 +1,42 @@
+@import "../../utils", "../../variables";
+
+.marquee {
+  overflow: hidden;
+  padding: px_to_rem(20px) 0;
+  background: $linen;
+  border-block: 1px solid $line;
+  @media (min-width: $screen_lg) {
+    padding: px_to_rem(26px) 0;
+  }
+
+  &__track {
+    display: flex;
+    align-items: center;
+    gap: px_to_rem(44px);
+    width: max-content;
+    will-change: transform;
+    animation: marquee 40s linear infinite;
+
+    span {
+      font-family: $fontTitle;
+      font-size: px_to_rem(30px);
+      font-weight: 300;
+      font-style: italic;
+      white-space: nowrap;
+      color: $umber;
+      @media (min-width: $screen_lg) {
+        font-size: px_to_rem(46px);
+      }
+    }
+
+    b {
+      font-size: px_to_rem(18px);
+      font-weight: 400;
+      color: $taupe;
+    }
+  }
+
+  &:hover &__track {
+    animation-play-state: paused;
+  }
+}

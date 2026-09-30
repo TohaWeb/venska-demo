@@ -1,0 +1,90 @@
+@import "../../utils", "../../variables";
+
+.process {
+  background: $linen;
+  border-block: 1px solid $line;
+
+  &__head {
+    max-width: px_to_rem(760px);
+    margin-bottom: px_to_rem(56px);
+    @media (min-width: $screen_lg) {
+      margin-bottom: px_to_rem(70px);
+    }
+  }
+
+  &__line {
+    display: none;
+    @media (min-width: $screen_lg) {
+      position: relative;
+      display: block;
+      height: 1px;
+      margin-bottom: px_to_rem(44px);
+      background: $line;
+    }
+
+    i {
+      position: absolute;
+      inset: 0;
+      background: $gradient-accent;
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: px_to_rem(44px);
+    @media (min-width: $screen_md) {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: px_to_rem(30px);
+      row-gap: px_to_rem(70px);
+    }
+    @media (min-width: $screen_lg) {
+      grid-template-columns: repeat(4, 1fr);
+      row-gap: px_to_rem(30px);
+    }
+  }
+}
+
+.step {
+  position: relative;
+  padding-top: px_to_rem(10px);
+
+  &::before {
+    @media (min-width: $screen_lg) {
+      content: "";
+      position: absolute;
+      top: px_to_rem(-50px);
+      left: 0;
+      width: px_to_rem(11px);
+      height: px_to_rem(11px);
+      border-radius: 50%;
+      background: $ivory;
+      border: 1px solid $taupe;
+    }
+  }
+
+  &__n {
+    display: inline-block;
+    font-family: $fontTitle;
+    font-style: italic;
+    font-size: px_to_rem(64px);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px $taupe;
+  }
+
+  h3 {
+    margin: px_to_rem(14px) 0 px_to_rem(10px);
+    font-family: $fontTitle;
+    font-weight: 400;
+    font-size: px_to_rem(30px);
+  }
+
+  p {
+    margin: 0;
+    font-size: px_to_rem(15px);
+    color: $taupe-gray;
+  }
+}

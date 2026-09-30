@@ -1,0 +1,446 @@
+@import "../../utils", "../../variables";
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: px_to_rem(120px) 0 px_to_rem(60px);
+  @media (min-width: $screen_lg) {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    padding: px_to_rem(130px) 0 px_to_rem(90px);
+    @supports (height: 1svh) {
+      min-height: 100svh;
+    }
+  }
+
+  // Soft blush "clouds". No filter: blur — the radial gradient is already soft,
+  // and only transform animates, so the compositor handles it without repaints.
+  &__sky {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    i {
+      position: absolute;
+      border-radius: 50%;
+      will-change: transform;
+      animation: drift 22s ease-in-out infinite alternate;
+
+      &:nth-child(1) {
+        width: 52vw;
+        height: 52vw;
+        right: -12vw;
+        top: -18vw;
+        background: radial-gradient(circle, rgba(241, 214, 209, .95), rgba(241, 214, 209, 0) 68%);
+      }
+
+      &:nth-child(2) {
+        width: 38vw;
+        height: 38vw;
+        left: -14vw;
+        bottom: -16vw;
+        background: radial-gradient(circle, rgba(222, 204, 190, .75), rgba(222, 204, 190, 0) 68%);
+        animation-duration: 26s;
+        animation-delay: -8s;
+      }
+
+      &:nth-child(3) {
+        width: 26vw;
+        height: 26vw;
+        left: 38%;
+        top: 8%;
+        background: radial-gradient(circle, rgba(246, 226, 222, .8), rgba(246, 226, 222, 0) 70%);
+        animation-duration: 30s;
+        animation-delay: -14s;
+      }
+    }
+  }
+
+  &__grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: px_to_rem(56px);
+    @media (min-width: $screen_lg) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, .92fr);
+      gap: px_to_rem(72px);
+      align-items: center;
+    }
+  }
+
+  &__content {
+    position: relative;
+  }
+
+  &__eyebrow {
+    &::before {
+      display: none;
+    }
+  }
+
+  &__title {
+    margin: 0 0 px_to_rem(30px);
+
+    .line {
+      display: block;
+      overflow: hidden;
+      padding-bottom: .07em;
+
+      > span {
+        display: inline-block;
+      }
+    }
+  }
+
+  &__lead {
+    max-width: px_to_rem(480px);
+    margin: 0 0 px_to_rem(38px);
+    font-size: px_to_rem(16px);
+    color: $umber;
+    @media (min-width: $screen_lg) {
+      font-size: px_to_rem(18px);
+    }
+  }
+
+  &__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: px_to_rem(14px);
+
+    .btn {
+      width: 100%;
+      @media (min-width: $screen_md) {
+        width: auto;
+      }
+    }
+  }
+
+  &__facts {
+    display: flex;
+    flex-wrap: wrap;
+    margin: px_to_rem(40px) 0 0;
+    padding: 0;
+    list-style: none;
+    @media (min-width: $screen_lg) {
+      margin-top: px_to_rem(48px);
+    }
+
+    li {
+      padding: 0 px_to_rem(14px);
+      border-left: 1px solid $line-2;
+      @media (min-width: $screen_md) {
+        padding: 0 px_to_rem(26px);
+      }
+
+      &:first-child {
+        padding-left: 0;
+        border-left: 0;
+      }
+    }
+
+    b {
+      display: block;
+      margin-bottom: px_to_rem(8px);
+      font-family: $fontTitle;
+      font-weight: 500;
+      font-size: px_to_rem(26px);
+      line-height: 1;
+      color: $mocha;
+      @media (min-width: $screen_md) {
+        font-size: px_to_rem(36px);
+      }
+    }
+
+    span {
+      display: block;
+      font-size: px_to_rem(11px);
+      line-height: 1.45;
+      color: $taupe-gray;
+      @media (min-width: $screen_md) {
+        font-size: px_to_rem(12px);
+      }
+    }
+
+    i {
+      display: block;
+      font-style: normal;
+      font-size: px_to_rem(11px);
+      letter-spacing: 2px;
+      color: $taupe;
+    }
+  }
+
+  // ---------- Visual: arches like the salon's interior ----------
+  &__visual {
+    position: relative;
+    height: px_to_rem(460px);
+    @media (min-width: $screen_md) {
+      height: px_to_rem(620px);
+    }
+    @media (min-width: $screen_lg) {
+      height: px_to_rem(620px);
+    }
+  }
+
+  &__arch {
+    position: absolute;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 999px 999px px_to_rem(28px) px_to_rem(28px);
+    background: $linen;
+    box-shadow: $shadow-deep;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &--main {
+      z-index: 1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 70%;
+      @media (min-width: $screen_md) {
+        width: 66%;
+      }
+      @media (min-width: $screen_lg) {
+        width: 72%;
+        max-width: px_to_rem(470px);
+      }
+
+      img {
+        object-position: 72% center;
+        transform-origin: 60% 70%;
+      }
+    }
+
+    &--small {
+      z-index: 2;
+      left: 0;
+      bottom: 7%;
+      width: 44%;
+      aspect-ratio: 3 / 4.2;
+      border: 6px solid $ivory;
+      border-radius: 999px 999px px_to_rem(32px) px_to_rem(32px);
+      @media (min-width: $screen_md) {
+        width: 40%;
+        border-width: 8px;
+      }
+      @media (min-width: $screen_lg) {
+        left: 2%;
+        width: 38%;
+        max-width: px_to_rem(240px);
+      }
+    }
+  }
+
+  &__line {
+    position: absolute;
+    z-index: 0;
+    left: 4%;
+    top: -6%;
+    height: 70%;
+    width: auto;
+    opacity: .5;
+    pointer-events: none;
+    user-select: none;
+    @media (min-width: $screen_lg) {
+      left: -2%;
+      height: 78%;
+    }
+  }
+
+  &__seal {
+    position: absolute;
+    z-index: 3;
+    left: 2%;
+    top: 3%;
+    display: grid;
+    place-items: center;
+    width: px_to_rem(104px);
+    height: px_to_rem(104px);
+    border-radius: 50%;
+    background: rgba($paper, .92);
+    box-shadow: $shadow;
+    @media (min-width: $screen_md) {
+      width: px_to_rem(130px);
+      height: px_to_rem(130px);
+      left: 4%;
+    }
+    @media (min-width: $screen_lg) {
+      width: px_to_rem(150px);
+      height: px_to_rem(150px);
+      left: 10%;
+      top: 6%;
+    }
+
+    svg {
+      position: absolute;
+      inset: 6%;
+      width: 88%;
+      height: 88%;
+      animation: spin 26s linear infinite;
+    }
+
+    text {
+      font-family: $fontPrimary;
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      fill: $mocha;
+    }
+
+    span {
+      font-family: $fontTitle;
+      font-size: px_to_rem(28px);
+      line-height: 1;
+      color: $ink;
+      @media (min-width: $screen_md) {
+        font-size: px_to_rem(34px);
+      }
+      @media (min-width: $screen_lg) {
+        font-size: px_to_rem(40px);
+      }
+    }
+  }
+
+  &__chip {
+    position: absolute;
+    z-index: 3;
+    left: 22%;
+    right: 0;
+    bottom: -2%;
+    display: flex;
+    align-items: center;
+    gap: px_to_rem(10px);
+    padding: px_to_rem(11px) px_to_rem(14px);
+    border-radius: px_to_rem(18px);
+    font-size: px_to_rem(13px);
+    @media (min-width: $screen_md) {
+      left: auto;
+      bottom: 4%;
+      gap: px_to_rem(12px);
+      padding: px_to_rem(14px) px_to_rem(20px);
+    }
+    @media (min-width: $screen_lg) {
+      bottom: 9%;
+    }
+    @media (min-width: $screen_xl) {
+      right: -4%;
+    }
+
+    b {
+      display: block;
+      font-size: px_to_rem(12.5px);
+      font-weight: 600;
+      @media (min-width: $screen_md) {
+        font-size: px_to_rem(13px);
+      }
+    }
+
+    span:not(.pulse) {
+      font-size: px_to_rem(11px);
+      color: $umber;
+      @media (min-width: $screen_md) {
+        font-size: px_to_rem(12px);
+      }
+    }
+
+    &.is-closed .pulse {
+      background: $taupe;
+
+      &::after {
+        animation: none;
+        opacity: 0;
+      }
+    }
+  }
+
+  &__scroll {
+    display: none;
+    @media (min-width: $screen_lg) {
+      position: absolute;
+      left: 50%;
+      bottom: px_to_rem(34px);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: px_to_rem(12px);
+      transform: translateX(-50%);
+      font-size: px_to_rem(10px);
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: $taupe-gray;
+    }
+
+    i {
+      position: relative;
+      width: 1px;
+      height: px_to_rem(54px);
+      overflow: hidden;
+      background: $line;
+
+      // moving highlight: transform instead of animating `top`
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 50%;
+        background: $taupe;
+        animation: scrollLine 2s $ease infinite;
+      }
+    }
+  }
+}
+
+// rotating last word: all words share one grid cell, so the box is as wide as the longest
+.rotator {
+  display: inline-grid;
+  vertical-align: top;
+  overflow: hidden;
+  padding: 0 .08em .08em 0;
+
+  .h1 &,
+  & {
+    background: none;
+    color: $mocha;
+  }
+
+  > span {
+    grid-area: 1 / 1;
+    background: $gradient-accent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transform: translateY(110%);
+    transition: none; // the reset back below the line must be instant
+
+    &.is-active {
+      transform: translateY(0);
+      transition: transform 1s $ease;
+    }
+
+    &.is-leaving {
+      transform: translateY(-110%);
+      transition: transform 1s $ease;
+    }
+  }
+}
+
+@keyframes drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(3vw, 2vw, 0) scale(1.08); }
+  100% { transform: translate3d(-2vw, 3vw, 0) scale(.96); }
+}
+
+@keyframes scrollLine {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(200%); }
+}

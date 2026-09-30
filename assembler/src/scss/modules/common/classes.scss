@@ -1,0 +1,100 @@
+@import "../../utils", "../../variables";
+
+// Solid light surfaces. No backdrop-filter: a blur behind an almost opaque
+// panel is invisible, but it forces the browser to re-blur the page on every scroll frame.
+.glass {
+  background: rgba($white, .88);
+  border: 1px solid $white-80;
+  box-shadow: $shadow;
+}
+
+.glass-dark {
+  background: $paper;
+  border: 1px solid $line;
+  box-shadow: $shadow;
+}
+
+// Infinite decorative animations only run while their section is on screen.
+// The section observer (_utils.js → observers.initSectionObserver) toggles .s-visible.
+[data-section]:not(.s-visible) {
+  .loop-anim,
+  .loop-anim::before,
+  .loop-anim::after {
+    animation-play-state: paused !important;
+  }
+}
+
+.clip-reveal {
+  clip-path: inset(0 0 0 0);
+}
+
+// Parallax images are taller than their frame so the scroll shift never exposes an edge
+img[data-speed] {
+  position: absolute;
+  left: 0;
+  top: -12%;
+  width: 100%;
+  height: 124%;
+  max-width: none;
+  object-fit: cover;
+}
+
+// Status dot with a pulsing ring — the ring animates transform/opacity only
+.pulse,
+.dot {
+  position: relative;
+  flex: none;
+  border-radius: 50%;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: inherit;
+    animation: ring 2.2s $ease infinite;
+  }
+}
+
+.pulse {
+  width: px_to_rem(10px);
+  height: px_to_rem(10px);
+  background: $online;
+}
+
+.dot {
+  width: px_to_rem(8px);
+  height: px_to_rem(8px);
+  background: $taupe;
+}
+
+@keyframes ring {
+  0% { transform: scale(1); opacity: .55; }
+  80%, 100% { transform: scale(2.8); opacity: 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes marquee {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}

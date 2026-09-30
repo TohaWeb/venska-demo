@@ -1,0 +1,383 @@
+@import "../../utils", "../../variables";
+
+// ---------- Scroll progress ----------
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $zIndexProgress;
+  height: 2px;
+  pointer-events: none;
+
+  i {
+    display: block;
+    height: 100%;
+    background: $gradient-accent;
+    transform-origin: left;
+    transform: scaleX(0);
+    will-change: transform;
+  }
+}
+
+// ---------- Header ----------
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $zIndexHeader;
+  padding: px_to_rem(16px) 0;
+  border-bottom: 1px solid transparent;
+  transition: padding .5s $ease, background-color .5s, border-color .5s, transform .5s $ease;
+  @media (min-width: $screen_lg) {
+    padding: px_to_rem(22px) 0;
+  }
+
+  // opaque enough to read over photos without a live backdrop blur
+  &.is-scrolled {
+    padding: px_to_rem(10px) 0;
+    background: rgba($ivory, .95);
+    border-color: $line;
+    @media (min-width: $screen_lg) {
+      padding: px_to_rem(12px) 0;
+    }
+  }
+
+  &.is-hidden {
+    transform: translateY(-100%);
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: px_to_rem(24px);
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: px_to_rem(22px);
+
+    .btn {
+      display: none;
+      @media (min-width: $screen_lg) {
+        display: inline-flex;
+      }
+    }
+  }
+
+  &__phone {
+    display: none;
+    font-size: px_to_rem(14px);
+    letter-spacing: .06em;
+    color: $umber;
+    transition: color $transition;
+    @media (min-width: $screen_xl) {
+      display: inline;
+    }
+
+    &:hover {
+      color: $mocha;
+    }
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: px_to_rem(12px);
+
+  &__mark {
+    display: grid;
+    place-items: center;
+    width: px_to_rem(42px);
+    height: px_to_rem(42px);
+    border-radius: 50%;
+    border: 1px solid $line-2;
+    background: $white;
+
+    svg {
+      width: px_to_rem(18px);
+      height: px_to_rem(27px);
+      color: $ink;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    font-family: $fontTitle;
+    font-size: px_to_rem(24px);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    line-height: 1;
+
+    small {
+      margin-top: px_to_rem(5px);
+      font-family: $fontPrimary;
+      font-size: px_to_rem(9px);
+      letter-spacing: .42em;
+      color: $taupe-gray;
+    }
+  }
+}
+
+.nav {
+  display: none;
+  @media (min-width: $screen_lg) {
+    display: flex;
+    gap: px_to_rem(28px);
+  }
+  @media (min-width: $screen_xl) {
+    gap: px_to_rem(34px);
+  }
+
+  a {
+    position: relative;
+    font-size: px_to_rem(13px);
+    letter-spacing: .08em;
+    color: rgba($ink, .72);
+    transition: color .3s;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: px_to_rem(-6px);
+      width: 100%;
+      height: 1px;
+      background: $taupe;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform .5s $ease;
+    }
+
+    &:hover,
+    &.is-active {
+      color: $ink;
+
+      &::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+    }
+  }
+}
+
+// ---------- Burger + mobile menu ----------
+.burger {
+  position: relative;
+  width: px_to_rem(46px);
+  height: px_to_rem(46px);
+  border-radius: 50%;
+  border: 1px solid $line-2;
+  @media (min-width: $screen_lg) {
+    display: none;
+  }
+
+  i {
+    position: absolute;
+    left: 30%;
+    right: 30%;
+    height: 1px;
+    background: $ink;
+    transition: transform .5s $ease, top .5s $ease;
+
+    &:first-child {
+      top: 42%;
+    }
+
+    &:last-child {
+      top: 57%;
+    }
+  }
+
+  .menu-open & i {
+    top: 50%;
+
+    &:first-child {
+      transform: rotate(45deg);
+    }
+
+    &:last-child {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: $zIndexMenu;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: px_to_rem(100px) px_to_rem(16px) px_to_rem(40px);
+  pointer-events: none;
+  visibility: hidden;
+  @media (min-width: $screen_md) {
+    padding: px_to_rem(100px) px_to_rem(32px) px_to_rem(40px);
+  }
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    background: $linen;
+    clip-path: circle(0% at calc(100% - #{px_to_rem(40px)}) #{px_to_rem(40px)});
+    transition: clip-path .9s $ease;
+  }
+
+  &__nav {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: px_to_rem(6px);
+
+    a {
+      display: flex;
+      align-items: baseline;
+      gap: px_to_rem(16px);
+      font-family: $fontTitle;
+      font-size: px_to_rem(40px);
+      font-weight: 300;
+      line-height: 1.15;
+      opacity: 0;
+      transform: translateY(px_to_rem(30px));
+      transition: opacity .6s $ease, transform .6s $ease;
+      @media (min-width: $screen_md) {
+        font-size: px_to_rem(60px);
+      }
+
+      em {
+        font-family: $fontPrimary;
+        font-style: normal;
+        font-size: px_to_rem(12px);
+        letter-spacing: .1em;
+        color: $taupe;
+      }
+    }
+  }
+
+  &__foot {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: px_to_rem(6px);
+    margin-top: px_to_rem(48px);
+    color: $taupe-gray;
+    opacity: 0;
+    transition: opacity .6s .55s;
+
+    a {
+      color: $mocha;
+      font-size: px_to_rem(20px);
+    }
+
+    .btn {
+      align-self: flex-start;
+      margin-top: px_to_rem(18px);
+      color: $ivory;
+      font-size: px_to_rem(13px);
+    }
+  }
+
+  .menu-open & {
+    pointer-events: auto;
+    visibility: visible;
+
+    .menu__bg {
+      clip-path: circle(150% at calc(100% - #{px_to_rem(40px)}) #{px_to_rem(40px)});
+    }
+
+    .menu__nav a {
+      opacity: 1;
+      transform: none;
+
+      @for $i from 1 through 6 {
+        &:nth-child(#{$i}) {
+          transition-delay: .2s + $i * .05s;
+        }
+      }
+    }
+
+    .menu__foot {
+      opacity: 1;
+    }
+  }
+}
+
+// ---------- Custom cursor (desktop with a mouse only) ----------
+.cursor {
+  display: none;
+
+  @media (hover: hover) and (pointer: fine) {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $zIndexCustomCursor;
+    pointer-events: none;
+
+    &__dot,
+    &__ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      border-radius: 50%;
+      will-change: transform;
+    }
+
+    &__dot {
+      width: 6px;
+      height: 6px;
+      margin: -3px 0 0 -3px;
+      background: $mocha;
+      transition: opacity .3s;
+    }
+
+    &__ring {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      margin: -20px 0 0 -20px;
+      border: 1px solid rgba($mocha, .55);
+      transition: width .5s $ease, height .5s $ease, margin .5s $ease, background-color .5s $ease, border-color .5s;
+
+      span {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+        color: $ivory;
+        opacity: 0;
+        transition: opacity .3s;
+      }
+    }
+
+    &.is-hover &__ring {
+      width: 64px;
+      height: 64px;
+      margin: -32px 0 0 -32px;
+      border-color: $taupe;
+    }
+
+    &.is-view &__ring {
+      width: 104px;
+      height: 104px;
+      margin: -52px 0 0 -52px;
+      background: $mocha;
+      border-color: transparent;
+
+      span {
+        opacity: 1;
+      }
+    }
+
+    &.is-view &__dot {
+      opacity: 0;
+    }
+  }
+}

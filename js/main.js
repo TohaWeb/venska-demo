@@ -16,9 +16,12 @@
   // Load service card images eagerly: they live in a transformed horizontal track
   $$('.card img').forEach((img) => { img.loading = 'eager'; });
 
-  /* ---------- Smooth scroll ---------- */
+  /* ---------- Smooth scroll ----------
+     Off for now: native browser scrolling. To bring Lenis back, set this to true
+     and restore <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"> in index.html. */
+  const SMOOTH_SCROLL = false;
   let lenis = null;
-  if (!reduced && typeof window.Lenis !== 'undefined') {
+  if (SMOOTH_SCROLL && !reduced && typeof window.Lenis !== 'undefined') {
     lenis = new window.Lenis({ duration: 1.15, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
     lenis.stop();
     if (hasGSAP) {

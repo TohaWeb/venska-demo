@@ -1,0 +1,142 @@
+@use "sass:math";
+
+@import "variables";
+
+$min_above: 0.85;
+$min_d: 0.9;
+$min_t: 0.85;
+$min_m: 0.85;
+
+@function round-to($value, $decimals: 3) {
+  $factor: math.pow(10, $decimals); // Calculate the multiplier
+  @return math.round($value * $factor) / $factor; // Rounding and dividing back
+}
+
+@function dynamic_clamp_above($pixels, $screen-width: $mockup_screen_desktop_w, $screen-height: $mockup_screen_desktop_h){
+  // Calculate the minimum value (tied to the screen width)
+  $min: round-to($pixels * $min_above);
+
+  // Calculate the dynamic value (depends on the screen width)
+  $dynamic: round-to($pixels / $screen-width * 100 * $min_above);
+
+  // Calculate the maximum value (tied to the screen height)
+  $max: round-to($pixels / $screen-height * 100 * $min_above);
+
+  // Return clamp() with calculated and rounded values
+  @return clamp(#{$pixels}, #{$dynamic}vw, #{$max}svh);
+}
+@function dynamic_clamp_above_for_vh($pixels, $screen-width: $mockup_screen_desktop_w, $screen-height: $mockup_screen_desktop_h){
+  // Calculate the minimum value (tied to the screen width)
+  $min: round-to($pixels * $min_above);
+
+  // Calculate the dynamic value (depends on the screen width)
+  $dynamic: round-to($pixels / $screen-width * 100 * $min_above);
+
+  // Calculate the maximum value (tied to the screen height)
+  $max: round-to($pixels / $screen-height * 100 * $min_above);
+
+  // Return clamp() with calculated and rounded values
+  @return clamp(#{$pixels}, #{$dynamic}vw, #{$max}vh);
+}
+
+@function dynamic_clamp_desktop($pixels, $screen-width: $mockup_screen_desktop_w, $screen-height: $mockup_screen_desktop_h) {
+  // Calculate the minimum value (tied to the screen width)
+  $min: round-to($pixels * $min_d);
+
+  // Calculate the dynamic value (depends on the screen width)
+  $dynamic: round-to($pixels / $screen-width * 100);
+
+  // Calculate the maximum value (tied to the screen height)
+  $max: round-to($pixels / $screen-height * 100);
+
+  // Return clamp() with calculated and rounded values
+  @return clamp(#{$min}, #{$dynamic}vw, #{$max}svh);
+}
+@function dynamic_clamp_desktop_for_vh($pixels, $screen-width: $mockup_screen_desktop_w, $screen-height: $mockup_screen_desktop_h) {
+  // Calculate the minimum value (tied to the screen width)
+  $min: round-to($pixels * $min_d);
+
+  // Calculate the dynamic value (depends on the screen width)
+  $dynamic: round-to($pixels / $screen-width * 100);
+
+  // Calculate the maximum value (tied to the screen height)
+  $max: round-to($pixels / $screen-height * 100);
+
+  // Return clamp() with calculated and rounded values
+  @return clamp(#{$min}, #{$dynamic}vw, #{$max}vh);
+}
+
+@function dynamic_clamp_tablet($pixels, $screen-width: $mockup_screen_tablet_w, $screen-height: $mockup_screen_tablet_h) {
+  // Calculate the minimum value (tied to the screen width)
+  $min: round-to($pixels * $min_t);
+
+  // Calculate the dynamic value (depends on the screen width)
+  $dynamic: round-to($pixels / $screen-width * 100);
+
+  // Calculate the maximum value (tied to the screen height)
+  $max: round-to($pixels / $screen-height * 100);
+
+  // Return clamp() with calculated and rounded values
+  //- Used when there's no separate tablet design, but responsive adjustments are needed.
+  @return calc(1.3 * clamp(#{$min}, #{$dynamic}vw, #{$max}svh));
+  //- Used when a separate tablet design is implemented, ensuring proper layout for tablet screens.
+  @return clamp(#{$min}, #{$dynamic}vw, #{$max}svh);
+}
+@function dynamic_clamp_tablet_for_vh($pixels, $screen-width: $mockup_screen_tablet_w, $screen-height: $mockup_screen_tablet_h) {
+  // Calculate the minimum value (tied to the screen width)
+  $min: round-to($pixels * $min_t);
+
+  // Calculate the dynamic value (depends on the screen width)
+  $dynamic: round-to($pixels / $screen-width * 100);
+
+  // Calculate the maximum value (tied to the screen height)
+  $max: round-to($pixels / $screen-height * 100);
+
+  // Return clamp() with calculated and rounded values
+  //- Used when there's no separate tablet design, but responsive adjustments are needed.
+  @return calc(1.3 * clamp(#{$min}, #{$dynamic}vw, #{$max}vh));
+  //- Used when a separate tablet design is implemented, ensuring proper layout for tablet screens.
+  @return clamp(#{$min}, #{$dynamic}vw, #{$max}vh);
+}
+
+@function dynamic_clamp_mobile($pixels, $screen-width: $mockup_screen_mobile_w, $screen-height: $mockup_screen_mobile_h) {
+  // Calculate the minimum value (tied to the screen width)
+  $min: round-to($pixels * $min_m);
+
+  // Calculate the dynamic value (depends on the screen width)
+  $dynamic: round-to($pixels / $screen-width * 100);
+
+  // Calculate the maximum value (tied to the screen height)
+  $max: round-to($pixels / $screen-height * 100);
+
+  // Return clamp() with calculated and rounded values
+  @return clamp(#{$min}, #{$dynamic}vw, #{$max}svh);
+}
+@function dynamic_clamp_mobile_for_vh($pixels, $screen-width: $mockup_screen_mobile_w, $screen-height: $mockup_screen_mobile_h) {
+  // Calculate the minimum value (tied to the screen width)
+  $min: round-to($pixels * $min_m);
+
+  // Calculate the dynamic value (depends on the screen width)
+  $dynamic: round-to($pixels / $screen-width * 100);
+
+  // Calculate the maximum value (tied to the screen height)
+  $max: round-to($pixels / $screen-height * 100);
+
+  // Return clamp() with calculated and rounded values
+  @return clamp(#{$min}, #{$dynamic}vw, #{$max}vh);
+}
+
+
+@function px_to_percent($px, $context) {
+  $raw-percent: ($px / $context) * 100;
+  $rounded-percent: math.round($raw-percent * 1000) / 1000;
+  @return $rounded-percent * 1%;
+}
+@function px_to_rem($px, $base: $base_FZ) {
+  @return ($px / $base) * 1rem;
+}
+@function px_to_em($px, $base: $base_FZ) {
+  @return ($px / $base) * 1em;
+}
+
+//@supports (height: 1svh){}

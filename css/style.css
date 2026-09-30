@@ -48,7 +48,7 @@ body {
   font-feature-settings: "lnum" 1;
   overflow-x: hidden;
 }
-body.is-loading { overflow: hidden; }
+body.is-loading, body.menu-open { overflow: hidden; }
 
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }

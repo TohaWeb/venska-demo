@@ -1,0 +1,101 @@
+@import "../../utils", "../../variables";
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto;
+
+  // The whole layout is built in rem, so scaling the root font size scales the page
+  font-size: dynamic_clamp_mobile_for_vh($base_FZ);
+  @supports (height: 1svh){
+    font-size: dynamic_clamp_mobile($base_FZ);
+  }
+  @media (min-width: $screen_md){
+    font-size: dynamic_clamp_tablet_for_vh($base_FZ);
+    @supports (height: 1svh){
+      font-size: dynamic_clamp_tablet($base_FZ);
+    }
+  }
+  @media (min-width: $screen_lg){
+    font-size: dynamic_clamp_desktop_for_vh($base_FZ);
+    @supports (height: 1svh){
+      font-size: dynamic_clamp_desktop($base_FZ);
+    }
+  }
+  @media (min-width: $mockup_screen_desktop_w) and (min-height: $mockup_screen_desktop_h){
+    font-size: dynamic_clamp_above_for_vh($base_FZ);
+    @supports (height: 1svh){
+      font-size: dynamic_clamp_above($base_FZ);
+    }
+  }
+
+  &.overflow-hidden {
+    overflow: hidden !important;
+    overscroll-behavior: none;
+    @supports (overflow: clip){
+      overflow: clip !important;
+    }
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: $ivory;
+  color: $ink;
+  font-family: $fontPrimary;
+  font-size: px_to_rem(15px);
+  line-height: 1.65;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "lnum" 1;
+  @media (min-width: $screen_md) {
+    font-size: px_to_rem(16px);
+  }
+}
+
+main {
+  overflow-x: clip;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background: $taupe;
+  color: $ivory;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@import "container",
+"classes",
+"buttons",
+"typography";

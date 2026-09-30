@@ -1,0 +1,147 @@
+@import "../../utils", "../../variables";
+
+.reviews {
+  overflow: hidden;
+  background: $linen;
+  border-block: 1px solid $line;
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: px_to_rem(30px);
+    margin-bottom: px_to_rem(48px);
+    @media (min-width: $screen_lg) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: px_to_rem(60px);
+    }
+
+    .h2 {
+      margin: 0;
+    }
+  }
+
+  &__score {
+    display: flex;
+    align-items: center;
+    gap: px_to_rem(18px);
+    padding: px_to_rem(18px) px_to_rem(26px);
+    border: 1px solid $line;
+    border-radius: px_to_rem(20px);
+
+    > b {
+      font-family: $fontTitle;
+      font-size: px_to_rem(64px);
+      font-weight: 400;
+      line-height: 1;
+      color: $mocha;
+    }
+
+    span {
+      font-size: px_to_rem(13px);
+      color: $taupe-gray;
+    }
+  }
+
+  &__rows {
+    display: grid;
+    gap: px_to_rem(22px);
+  }
+
+  // Edge fades are static overlays in the section colour — cheaper than
+  // a mask on the moving row, which would be recomposited every frame.
+  &__row {
+    position: relative;
+    overflow: hidden;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 2;
+      width: 8%;
+      pointer-events: none;
+    }
+
+    &::before {
+      left: 0;
+      background: linear-gradient(90deg, $linen, rgba($linen, 0));
+    }
+
+    &::after {
+      right: 0;
+      background: linear-gradient(270deg, $linen, rgba($linen, 0));
+    }
+
+    &:hover .reviews__track {
+      animation-play-state: paused;
+    }
+
+    &--rev .reviews__track {
+      animation-direction: reverse;
+      animation-duration: 70s;
+    }
+  }
+
+  &__track {
+    display: flex;
+    gap: px_to_rem(22px);
+    width: max-content;
+    will-change: transform;
+    animation: marquee 60s linear infinite;
+  }
+}
+
+.review {
+  flex: none;
+  width: px_to_rem(300px);
+  margin: 0;
+  padding: px_to_rem(22px);
+  border-radius: px_to_rem($radius);
+  background: $paper;
+  border: 1px solid $line;
+  transition: border-color .4s;
+  @media (min-width: $screen_md) {
+    width: px_to_rem(380px);
+    padding: px_to_rem(28px) px_to_rem(30px);
+  }
+
+  &:hover {
+    border-color: $line-2;
+  }
+
+  p {
+    margin: px_to_rem(14px) 0 px_to_rem(22px);
+    font-family: $fontTitle;
+    font-size: px_to_rem(19px);
+    line-height: 1.35;
+    color: $ink;
+    @media (min-width: $screen_md) {
+      font-size: px_to_rem(22px);
+    }
+  }
+
+  footer {
+    display: flex;
+    align-items: center;
+    gap: px_to_rem(12px);
+    font-size: px_to_rem(14px);
+    color: $umber;
+  }
+}
+
+.ava {
+  display: grid;
+  place-items: center;
+  width: px_to_rem(38px);
+  height: px_to_rem(38px);
+  border-radius: 50%;
+  background: $gradient-accent;
+  color: $ivory;
+  font-size: px_to_rem(14px);
+  font-weight: 700;
+}

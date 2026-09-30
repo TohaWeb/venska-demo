@@ -1,0 +1,80 @@
+@import "../../utils", "../../variables";
+
+// One size for every section heading; the hero title is ~1.3x bigger
+.h1,
+.h2 {
+  font-family: $fontTitle;
+  font-weight: 300;
+
+  em {
+    font-style: italic;
+    background: $gradient-accent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding-right: .06em;
+  }
+}
+
+.h1 {
+  font-size: px_to_rem(48px);
+  line-height: .96;
+  letter-spacing: -.02em;
+  @media (min-width: $screen_md) {
+    font-size: px_to_rem(64px);
+  }
+  @media (min-width: $screen_lg) {
+    font-size: px_to_rem(88px);
+  }
+}
+
+.h2 {
+  font-size: px_to_rem(36px);
+  line-height: 1.04;
+  letter-spacing: -.01em;
+  margin: 0 0 px_to_rem(24px);
+  @media (min-width: $screen_md) {
+    font-size: px_to_rem(48px);
+  }
+  @media (min-width: $screen_lg) {
+    font-size: px_to_rem(66px);
+  }
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: px_to_rem(12px);
+  margin: 0 0 px_to_rem(22px);
+  font-size: px_to_rem(11px);
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: $mocha;
+  @media (min-width: $screen_md) {
+    font-size: px_to_rem(12px);
+    letter-spacing: .28em;
+  }
+
+  &::before {
+    content: "";
+    width: px_to_rem(34px);
+    height: 1px;
+    background: $taupe;
+    opacity: .7;
+  }
+}
+
+.muted {
+  color: $taupe-gray;
+}
+
+.nw {
+  white-space: nowrap;
+}
+
+.stars {
+  color: $taupe;
+  letter-spacing: px_to_rem(3px);
+  font-size: px_to_rem(14px);
+}
