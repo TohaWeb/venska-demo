@@ -1,3 +1,9 @@
 # generated sources (large PNGs) and local tooling
 assets/img/_source/
 .claude/
+
+# build tooling (install with: cd assembler && npm ci)
+assembler/node_modules/
+
+# dev-only source maps
+assets/**/*.map
